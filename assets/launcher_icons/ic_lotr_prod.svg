@@ -1,0 +1,21 @@
+<svg viewBox="0 0 512 512" width="512" height="512">
+  <!-- Fondo Verde Bosque -->
+  <rect width="512" height="512" fill="#2E4F4F" />
+
+  <!-- Anillo Único (Dorado) -->
+  <circle cx="256" cy="280" r="110" fill="none" stroke="#D4AF37" stroke-width="20" />
+  <!-- Detalle interior del anillo -->
+  <circle cx="256" cy="280" r="90" fill="none" stroke="#223B3B" stroke-width="4" />
+
+  <!-- Espada -->
+  <!-- Pomo -->
+  <circle cx="256" cy="90" r="12" fill="#D4AF37" />
+  <!-- Mango -->
+  <rect x="248" y="102" width="16" height="48" fill="#1C2833" />
+  <!-- Guarda -->
+  <path d="M 200 150 L 312 150 L 312 162 L 200 162 Z" fill="#D4AF37" />
+  <!-- Hoja principal -->
+  <path d="M 236 162 L 276 162 L 256 420 Z" fill="#FAFAFA" />
+  <!-- Sombreado para dar volumen a la hoja -->
+  <path d="M 256 162 L 276 162 L 256 420 Z" fill="#D5DBDB" />
+</svg>
