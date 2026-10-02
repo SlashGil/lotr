@@ -1,0 +1,83 @@
+name: Firebase App Distribution (Android & iOS)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      flavor:
+        description: 'Flavor to build and deploy (dev or prod)'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  build-and-distribute-android:
+    name: Build & Distribute Android (${{ github.event.inputs.flavor || 'dev' }})
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.13.5'
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Android APK
+        run: flutter build apk --flavor ${{ github.event.inputs.flavor || 'dev' }} --release
+
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          # Automatically select the correct App ID based on flavor
+          appId: ${{ github.event.inputs.flavor == 'prod' && secrets.FIREBASE_APP_ID_ANDROID_PROD || secrets.FIREBASE_APP_ID_ANDROID_DEV }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIAL_JSON }}
+          groups: testers
+          file: build/app/outputs/flutter-apk/app-${{ github.event.inputs.flavor || 'dev' }}-release.apk
+
+  # NOTE: iOS distribution requires macOS runner and Apple Certificates.
+  # For iOS, you typically need to set up Fastlane Match to handle signing before building.
+  build-and-distribute-ios:
+    name: Build & Distribute iOS (${{ github.event.inputs.flavor || 'dev' }})
+    runs-on: macos-latest
+    # uncomment below if you want this to run after android
+    # needs: build-and-distribute-android 
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.13.5'
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # To build iOS for distribution, you MUST configure provisioning profiles and certificates via fastlane or xcodebuild.
+      # - name: Build iOS IPA
+      #   run: flutter build ipa --flavor ${{ github.event.inputs.flavor || 'dev' }} --export-options-plist=ios/ExportOptions.plist
+
+      # - name: Upload to Firebase App Distribution
+      #   uses: wzieba/Firebase-Distribution-Github-Action@v1
+      #   with:
+      #     appId: ${{ github.event.inputs.flavor == 'prod' && secrets.FIREBASE_APP_ID_IOS_PROD || secrets.FIREBASE_APP_ID_IOS_DEV }}
+      #     serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIAL_JSON }}
+      #     groups: testers
+      #     file: build/ios/ipa/lotr.ipa

@@ -1,0 +1,8 @@
+flutter_native_splash:
+  color: "#1A1F1B"
+  image: "assets/launcher_icons/ic_lotr_prod.png"
+  android_12:
+    color: "#1A1F1B"
+    image: "assets/launcher_icons/ic_lotr_prod.png"
+  ios: true
+  android: true
