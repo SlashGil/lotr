@@ -1,0 +1,33 @@
+<svg viewBox="0 0 512 512" width="512" height="512">
+  <!-- Fondo Pergamino -->
+  <rect width="512" height="512" fill="#FAFAFA" />
+
+  <!-- Cuadrícula de Cartografía -->
+  <path d="M 0 128 L 512 128 M 0 256 L 512 256 M 0 384 L 512 384 M 128 0 L 128 512 M 256 0 L 256 512 M 384 0 L 384 512" stroke="#2C3E50" stroke-width="2" stroke-opacity="0.1" />
+  <path d="M 0 64 L 512 64 M 0 192 L 512 192 M 0 320 L 512 320 M 0 448 L 512 448 M 64 0 L 64 512 M 192 0 L 192 512 M 320 0 L 320 512 M 448 0 L 448 512" stroke="#2C3E50" stroke-width="1" stroke-opacity="0.05" />
+
+  <!-- Anillo Único (Wireframe) -->
+  <circle cx="256" cy="280" r="110" fill="none" stroke="#2C3E50" stroke-width="4" stroke-dasharray="12, 8" />
+
+  <!-- Espada (Wireframe) -->
+  <!-- Pomo -->
+  <circle cx="256" cy="90" r="12" fill="none" stroke="#D4AF37" stroke-width="4" />
+  <!-- Mango -->
+  <rect x="248" y="102" width="16" height="48" fill="none" stroke="#2C3E50" stroke-width="4" stroke-dasharray="6, 4" />
+  <!-- Guarda -->
+  <rect x="200" y="150" width="112" height="12" fill="none" stroke="#D4AF37" stroke-width="4" />
+  <!-- Hoja -->
+  <path d="M 236 162 L 276 162 L 256 420 Z" fill="none" stroke="#2C3E50" stroke-width="4" stroke-dasharray="12, 8" />
+
+  <!-- Nodos de diagrama técnico -->
+  <circle cx="256" cy="280" r="6" fill="#D4AF37" />
+  <circle cx="256" cy="170" r="6" fill="#D4AF37" />
+  <circle cx="200" cy="156" r="6" fill="#D4AF37" />
+  <circle cx="312" cy="156" r="6" fill="#D4AF37" />
+  <circle cx="256" cy="420" r="6" fill="#D4AF37" />
+
+  <!-- Cinta de Construcción / Debug -->
+  <path d="M 0 0 L 160 0 L 0 160 Z" fill="#FACC15" />
+  <path d="M 40 0 L 80 0 L 0 80 L 0 40 Z" fill="#2C3E50" />
+  <path d="M 120 0 L 160 0 L 0 160 L 0 120 Z" fill="#2C3E50" />
+</svg>
