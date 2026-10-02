@@ -71,14 +71,14 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      # To build iOS for distribution, you MUST configure provisioning profiles and certificates via fastlane or xcodebuild.
-      # - name: Build iOS IPA
-      #   run: flutter build ipa --flavor ${{ github.event.inputs.flavor || 'dev' }} --export-options-plist=ios/ExportOptions.plist
+      # Build iOS IPA (Requires setting up an ExportOptions.plist and Apple Developer Certificates)
+      - name: Build iOS IPA
+        run: flutter build ipa --flavor ${{ github.event.inputs.flavor || 'dev' }} --export-method ad-hoc
 
-      # - name: Upload to Firebase App Distribution
-      #   uses: wzieba/Firebase-Distribution-Github-Action@v1
-      #   with:
-      #     appId: ${{ github.event.inputs.flavor == 'prod' && secrets.FIREBASE_APP_ID_IOS_PROD || secrets.FIREBASE_APP_ID_IOS_DEV }}
-      #     serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIAL_JSON }}
-      #     groups: testers
-      #     file: build/ios/ipa/lotr.ipa
+      - name: Upload iOS to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ github.event.inputs.flavor == 'prod' && secrets.FIREBASE_APP_ID_IOS_PROD || secrets.FIREBASE_APP_ID_IOS_DEV }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIAL_JSON }}
+          groups: testers
+          file: build/ios/ipa/lotr.ipa
